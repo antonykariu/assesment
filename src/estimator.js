@@ -3,16 +3,22 @@ const covid19ImpactEstimator = (data) => {
   const impacts = [10, 50];
   const outcome = (d, impact) => {
     let timeInDays = d.timeToElapse;
-    if (d.periodType == "days" && timeInDays % 3 != 0){
-      timeInDays = timeInDays - (timeInDays % 3);
+    let value = timeInDays % 3;
+
+    if (d.periodType == "days" && value != 0){
+      if(value == 2){
+        timeInDays += 1;
+      }
+      timeInDays -= value;
     }
     if(d.periodType == "weeks"){
-      if(timeInDays % 3 != 0){
-        timeInDays = timeInDays * 7 - ((timeInDays * 7) % 3);
+      if(value != 0){
+        if(value == 2){
+        timeInDays = timeInDays * 7 + 1;
+        }
+        timeInDays = timeInDays * 7 - 1;
       }
-      else{
-      timeInDays = timeInDays * 7;
-      }
+      timeInDays *= 7;
     }
     if(d.periodType == "months"){
       timeInDays *= 30;

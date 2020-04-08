@@ -6,8 +6,13 @@ const covid19ImpactEstimator = (data) => {
     if (d.periodType == "days" && timeInDays % 3 != 0){
       timeInDays = timeInDays - (timeInDays % 3);
     }
-    if(d.periodType == "weeks" && timeInDays % 3 != 0){
-      timeInDays = (timeInDays * 7) - ((timeInDays * 7) % 3);
+    if(d.periodType == "weeks"){
+      if(timeInDays % 3 != 0){
+        timeInDays = timeInDays * 7 - ((timeInDays * 7) % 3);
+      }
+      else{
+      timeInDays = timeInDays * 7;
+      }
     }
     if(d.periodType == "months"){
       timeInDays *= 30;

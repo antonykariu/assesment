@@ -2,15 +2,18 @@ const covid19ImpactEstimator = (data) => {
   const input = data;
   const impacts = [10, 50];
   const outcome = (d, impact) => {
-    let timeInDays = Math.round(d.timeToElapse / 3);
+    let timeInDays = d.timeToElapse;
+    if (d.periodType == "days" && timeInDays % 3 != 0){
+      timeInDays = timeInDays - (timeInDays % 3);
+    }
     if(d.periodType == "weeks"){
-      timeInDays = (timeInDays * 7) / 3;
+      timeInDays *= 7;
     }
     if(d.periodType == "months"){
-      timeInDays = (timeInDays * 30) / 3;
+      timeInDays *= 30;
     }
     const currentlyInfected = impact * d.reportedCases;
-    const infectionsByRequestedTime = currentlyInfected * (2 ** timeInDays);
+    const infectionsByRequestedTime = currentlyInfected * (2 ** (timeInDays / 3));
     const severeCasesByRequestedTime = infectionsByRequestedTime * 0.15;
     const hospitalBedsByByRequestedTime = d.totalHospitalBeds * 0.35 - severeCasesByRequestedTime;
     const casesForICUByRequestedTime = infectionsByRequestedTime * 0.05;

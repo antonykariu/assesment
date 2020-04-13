@@ -20,6 +20,9 @@ const covid19ImpactEstimator = (data) => {
     let t = timeInDays();
     if(t % 3 != 0){
       t -= (t%3);
+      if(period == "days"){
+        t -= (t%3)+1;
+      }
     }
     let cur = cases * num;
     let ibrt =  Math.trunc(cur * (2 ** ( t / 3)));

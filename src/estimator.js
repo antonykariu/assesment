@@ -20,9 +20,6 @@ const covid19ImpactEstimator = (data) => {
     let t = timeInDays();
     if(t % 3 != 0){
       t -= (t%3);
-      if(period == "days"){
-        t -= (t%3)+1;
-      }
     }
     let cur = cases * num;
     let ibrt =  Math.trunc(cur * (2 ** ( t / 3)));
@@ -32,7 +29,7 @@ const covid19ImpactEstimator = (data) => {
     // challenge 3
     let cfibrt = Math.trunc(ibrt * 0.05);
     let cfvbrt = Math.trunc(ibrt * 0.02);
-    let dif = Math.trunc((ibrt * pop * usd) / t);
+    let dif = Math.trunc((Math.trunc(cur * (2 ** ( (t-1) / 3))) * pop * usd) / t);
     
     return {
       currentlyInfected: cur,

@@ -1,54 +1,65 @@
+/* 
+data structure 
+-----------------------------------------------------
+{
+  region: {
+  name: "Africa",
+  avgAge: 19.7,
+  avgDailyIncomeInUSD: 5,
+  avgDailyIncomePopulation: 0.71
+  },
+  periodType: "days",
+  timeToElapse: 58,
+  reportedCases: 674,
+  population: 66622705,
+  totalHospitalBeds: 1380614
+  }
+-----------------------------------------------------
+*/
 const covid19ImpactEstimator = (data) => {
-  const input = data;
-  const impacts = [10, 50];
-  
-  const outcome = (d, impact) => {
-    let timeInDays = d.timeToElapse;
-    if (d.periodType == "days" && timeInDays % 3 != 0){
-      timeInDays = timeInDays - (timeInDays % 3);
-    }
-    if(d.periodType == "weeks"){
-      if(timeInDays % 3 != 0){
-        timeInDays = timeInDays * 7 - ((timeInDays * 7) % 3);
-      }
-      else{
-      timeInDays = timeInDays * 7;
-      }
-    }
-    if(d.periodType == "months"){
-      timeInDays *= 30;
-    }
-    const cif = () => {impact * d.reportedCases};
-    const ibrt = () =>{cif() * (2 ** (timeInDays / 3));};
-    const scbrt = () => {ibrt() * 0.15;};
-    const hbbrt = () => {
-      let val = scbrt();
-      return Math.trunc((d.totalHospitalBeds * 0.35) - val);
-    };
-    const cfibrt = () => {Math.trunc(ibrt() * 0.05);};
-    const cfvbrt = () => {ibrt() * 0.02;};
-    const dif = () =>{ 
-      let r = d.region;
-      return Math.trunc(ibrt() * r.avgDailyIncomePopulation
-    * r.avgDailyIncomeInUSD * timeInDays);
+  // challenge 1
+  let Data = data;
+
+  let period = Data.periodType,
+  time = Data.timeToElapse,
+  cases = Data.reportedCases,
+  beds = Data.totalHospitalBeds,
+  pop = Data.region.avgDailyIncomePopulation,
+  usd = Data.region.avgDailyIncomeInUSD;
+
+  let timeInDays = () => {
+    if(period == "weeks"){return time * 7;}
+    else if(period == "months"){return time * 30;}
+    else{return time;}
   };
 
+  const impact = (num) =>{
+    let cur = cases * num;
+    let ibrt =  Math.trunc(cur * (2 ** timeInDays() / 3));
+    // challenge 2
+    let scbrt = Math.trunc(ibrt * 0.15);
+    let hbbrt = Math.trunc(beds * 0.35 - scbrt);
+    // challenge 3
+    let cfibrt = Math.trunc(ibrt * 0.05);
+    let cfvbrt = Math.trunc(ibrt * 0.02);
+    let dif = Math.trunc((ibrt * pop * usd) / timeInDays());
+    
     return {
-      currentlyInfected: cif(),
-      infectionsByRequestedTime: ibrt(),
-      severeCasesByRequestedTime: scbrt(),
-      hospitalBedsByRequestedTime: hbbrt(),
-      casesForICUByRequestedTime: cfibrt(),
-      casesForVentilatorsByRequestedTime: cfvbrt(),
-      dollarsInFlight: dif()
-    };
+      currentlyInfected: cur,
+      infectionsByRequestedTime: ibrt,
+      severeCasesByRequestedTime: scbrt,
+      hospitalBedsByRequestedTime: hbbrt,
+      casesForICUByRequestedTime: cfibrt,
+      casesForVentilatorsByRequestedTime: cfvbrt,
+      dollarsInFlight: dif
+    }
   };
+  
+  return{
+    impact: impact(10),
+    severeImpact: impact(50)
+  };
+}
 
-  return {
-    data: input,
-    impact: outcome(input, impacts[0]),
-    severeImpact: outcome(input, impacts[1])
-  };
-};
 
 export default covid19ImpactEstimator;

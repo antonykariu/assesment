@@ -28,21 +28,24 @@ const covid19ImpactEstimator = (data) => {
   usd = Data.region.avgDailyIncomeInUSD;
 
   let timeInDays = () => {
-    if(period == "weeks"){return time * 7;}
-    else if(period == "months"){return time * 30;}
-    else{return time;}
+    let value;
+    if(period == "weeks"){value = time * 7;}
+    else if(period == "months"){value = time * 30;}
+    else{value = time;}
+    return value;
   };
 
   const impact = (num) =>{
+    let t = timeInDays();
     let cur = cases * num;
-    let ibrt =  Math.trunc(cur * (2 ** timeInDays() / 3));
+    let ibrt =  Math.trunc(cur * (2 ** ( t / 3)));
     // challenge 2
     let scbrt = Math.trunc(ibrt * 0.15);
     let hbbrt = Math.trunc(beds * 0.35 - scbrt);
     // challenge 3
     let cfibrt = Math.trunc(ibrt * 0.05);
     let cfvbrt = Math.trunc(ibrt * 0.02);
-    let dif = Math.trunc((ibrt * pop * usd) / timeInDays());
+    let dif = Math.trunc((ibrt * pop * usd) / t);
     
     return {
       currentlyInfected: cur,

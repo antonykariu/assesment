@@ -1,6 +1,7 @@
 const covid19ImpactEstimator = (data) => {
   const input = data;
   const impacts = [10, 50];
+  
   const outcome = (d, impact) => {
     let timeInDays = d.timeToElapse;
     if (d.periodType == "days" && timeInDays % 3 != 0){
@@ -17,23 +18,26 @@ const covid19ImpactEstimator = (data) => {
     if(d.periodType == "months"){
       timeInDays *= 30;
     }
-    const currentlyInfected = impact * d.reportedCases;
-    const infectionsByRequestedTime = currentlyInfected * (2 ** (timeInDays / 3));
-    const severeCasesByRequestedTime = infectionsByRequestedTime * 0.15;
-    const hospitalBedsByRequestedTime = Math.trunc(d.totalHospitalBeds * 0.35 - severeCasesByRequestedTime);
-    const casesForICUByRequestedTime = Math.trunc(infectionsByRequestedTime * 0.05);
-    const casesForVentilatorsByRequestedTime = Math.trunc((casesForICUByRequestedTime * 0.02)*20);
-    const dollarsInFlight = Math.trunc(infectionsByRequestedTime * d.region.avgDailyIncomePopulation
-    * d.region.avgDailyIncomeInUSD * timeInDays);
+    const cif = () => {impact * d.reportedCases};
+    const ibrt = () =>{cif() * (2 ** (timeInDays / 3));};
+    const scbrt = () => {ibrt() * 0.15;};
+    const hbbrt = () => {Math.trunc(d.totalHospitalBeds * 0.35 - scbrt());};
+    const cfibrt = () => {Math.trunc(ibrt() * 0.05);};
+    const cfvbrt = () => {ibrt() * 0.02;};
+    const dif = () =>{ 
+      let r = d.region;
+      return Math.trunc(ibrt() * r.avgDailyIncomePopulation
+    * r.avgDailyIncomeInUSD * timeInDays);
+  };
 
     return {
-      currentlyInfected,
-      infectionsByRequestedTime,
-      severeCasesByRequestedTime,
-      hospitalBedsByRequestedTime,
-      casesForICUByRequestedTime,
-      casesForVentilatorsByRequestedTime,
-      dollarsInFlight
+      currentlyInfected: cif(),
+      infectionsByRequestedTime: ibrt(),
+      severeCasesByRequestedTime: scbrt(),
+      hospitalBedsByRequestedTime: hbbrt(),
+      casesForICUByRequestedTime: cfibrt(),
+      casesForVentilatorsByRequestedTime: cfvbrt(),
+      dollarsInFlight: dif()
     };
   };
 

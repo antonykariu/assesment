@@ -21,7 +21,10 @@ const covid19ImpactEstimator = (data) => {
     const cif = () => {impact * d.reportedCases};
     const ibrt = () =>{cif() * (2 ** (timeInDays / 3));};
     const scbrt = () => {ibrt() * 0.15;};
-    const hbbrt = () => {Math.trunc(((d.totalHospitalBeds * 0.35) - scbrt()));};
+    const hbbrt = () => {
+      let val = scbrt();
+      return Math.trunc((d.totalHospitalBeds * 0.35) - val);
+    };
     const cfibrt = () => {Math.trunc(ibrt() * 0.05);};
     const cfvbrt = () => {ibrt() * 0.02;};
     const dif = () =>{ 

@@ -63,6 +63,5 @@ const covid19ImpactEstimator = (data) => {
     severeImpact: impact(50)
   };
 }
-// no changes challenge1
 
 export default covid19ImpactEstimator;

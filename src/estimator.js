@@ -23,8 +23,8 @@ const covid19ImpactEstimator = (data) => {
     const hospitalBedsByRequestedTime = Math.trunc(d.totalHospitalBeds * 0.35 - severeCasesByRequestedTime);
     const casesForICUByRequestedTime = Math.trunc(infectionsByRequestedTime * 0.05);
     const casesForVentilatorsByRequestedTime = Math.trunc(infectionsByRequestedTime * 0.02);
-    const dollarsInFlight = infectionsByRequestedTime * d.region.avgDailyIncomePopulation
-    * d.region.avgDailyIncomeInUSD * timeInDays;
+    const dollarsInFlight = Math.trunc(infectionsByRequestedTime * d.region.avgDailyIncomePopulation
+    * d.region.avgDailyIncomeInUSD * timeInDays);
 
     return {
       currentlyInfected,

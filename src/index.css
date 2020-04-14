@@ -110,7 +110,7 @@ input:focus,select:focus{
 	text-align: center;	
 }
 .impact .infected h5, .severe-impact .infected h5{
-	color: #ad8800;
+	color: #745a00;
 }
 .impact .severe-cases h5,  .severe-impact .severe-cases h5{
 	color: #925000;
@@ -122,5 +122,5 @@ input:focus,select:focus{
 	color: #780000;
 }
 .impact .dollars h5, .severe-impact .dollars h5{
-	color: #ad8800;
+	color: #925000;
 }

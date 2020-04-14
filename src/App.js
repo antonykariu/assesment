@@ -48,8 +48,3 @@ let mydata = {
     ventilators[1].children[1].innerHTML = data.severeImpact.casesForVentilatorsByRequestedTime;
     dollars[1].children[1].innerHTML = data.severeImpact.dollarsInFlight;
   });
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('../service-worker.js');
-    });
-  }

@@ -65,6 +65,7 @@ input:focus,select:focus{
 	background-color: #028acf;
 	color: white;
 	height: 30px;
+	width: 100px;
 	font-size: 18px;
 	border: 1px solid black;
 	border-style: hidden;

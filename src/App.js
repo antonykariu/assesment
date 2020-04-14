@@ -50,6 +50,6 @@ let mydata = {
   });
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
-      navigator.serviceWorker.register('../serviceWorker.js');
+      navigator.serviceWorker.register('../service-worker.js');
     });
   }

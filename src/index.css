@@ -1,0 +1,125 @@
+body, html{
+	margin: 0;
+	padding: 0;
+	font-family: verdana;
+}
+
+.container{
+	width: 100vw;
+	height: 100vh;
+	padding: 20px;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: space-around;
+}
+.data{
+	width: 40vw;
+	height: 70vh;
+	border: 1px solid #e0e0e0;
+	padding: 4px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+}
+h3{
+	text-align: center;
+	color: #028acf;
+}
+.form{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	border: 1px solid black;
+	border-style: hidden;
+	border-radius: 5px;
+}
+form{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 4px;
+	margin-left: 20%;
+}
+.form-view{
+	width: 80%;
+	margin: 5px 0;
+	display: flex;
+	flex-direction: column;
+}
+input,select{
+	width: 50%;
+	margin: 2px 0 0 0;
+	border: 1px solid #bdbdbd;
+	border-radius: 4px;
+}
+input:focus,select:focus{
+	width: 55%;
+	margin: 4px 0 0 0;
+	border: 1px solid black;
+	border-style: hidden;
+	box-shadow: 0 0 2px #028acf;
+}
+#submit{
+	background-color: #028acf;
+	color: white;
+	height: 30px;
+	font-size: 18px;
+	border: 1px solid black;
+	border-style: hidden;
+	border-radius: 15px;
+}
+#submit:hover{
+	cursor: pointer;
+}
+.data-view{
+	width: 40vw;
+	height: 90vh;
+	border: 1px solid #e0e0e0;
+	padding: 4px;
+	box-sizing: border-box;
+	overflow-y: scroll;
+	display: flex;
+	flex-direction: column;
+	border-radius: 0 8px 8px  0;
+}
+.data-view h5 {
+	margin: 0;
+}
+.data-view::-webkit-scrollbar{
+  width: 16px;
+}
+ 
+.data-view::-webkit-scrollbar-track{
+	box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+	border-radius: 8px;
+}
+ 
+.data-view::-webkit-scrollbar-thumb{
+  background-color: #028acf;
+	outline: 1px solid slategrey;
+	border-radius: 8px;
+}
+.impact,.severe-impact{
+	display: flex;
+	flex-direction: column;
+}
+.impact div, .severe-impact div{
+	text-align: center;	
+}
+.impact .infected h5, .severe-impact .infected h5{
+	color: #fdc500;
+}
+.impact .severe-cases h5,  .severe-impact .severe-cases h5{
+	color: #fd8c00;
+}
+.impact .icu h5, .severe-impact .icu h5{
+	color: #dc0000;
+}
+.impact .ventilators h5, .severe-impact .ventilators h5{
+	color: #780000;
+}
+.impact .dollars h5, .severe-impact .dollars h5{
+	color: #fdc500;
+}

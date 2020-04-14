@@ -1,5 +1,5 @@
 import covid19ImpactEstimator from './estimator.js';
-
+console.log("app running");
 let mydata = {
     region: {
       name: "Africa",

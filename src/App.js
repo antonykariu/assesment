@@ -1,4 +1,4 @@
-import covid19ImpactEstimator from './estimator';
+import covid19ImpactEstimator from './estimator.js';
 
 let mydata = {
     region: {

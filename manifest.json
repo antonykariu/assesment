@@ -1,0 +1,9 @@
+{
+    "name": "covid19 estimator",
+    "short_name": "covestimator",
+    "theme_color": "#028acf",
+    "background_color": "#ffffff",
+    "display": "browser",
+    "scope": "/",
+    "start_url": "/"
+  }

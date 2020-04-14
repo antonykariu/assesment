@@ -1,3 +1,17 @@
+// let mydata = {
+//   region: {
+//     name: "Africa",
+//     avgAge: 19.7,
+//     avgDailyIncomeInUSD: 5,
+//     avgDailyIncomePopulation: 0.71
+//   },
+//   periodType: "days",
+//   timeToElapse: 21,
+//   reportedCases: 674,
+//   population: 66622705,
+//   totalHospitalBeds: 1380614
+// }
+
 const covid19ImpactEstimator = (data) => {
   // challenge 1
   let Data = data;
@@ -18,11 +32,9 @@ const covid19ImpactEstimator = (data) => {
 
   const impact = (num) =>{
     let t = timeInDays();
-    if(t % 3 != 0){
-      t -= (t%3);
-    }
+
     let cur = cases * num;
-    let ibrt =  Math.trunc(cur * (2 ** ( t / 3)));
+    let ibrt =  Math.trunc(cur * (2 ** Math.trunc( t / 3)));
     // challenge 2
     let scbrt = Math.trunc(ibrt * 0.15);
     let hbbrt = Math.trunc(beds * 0.35 - scbrt);
@@ -47,5 +59,5 @@ const covid19ImpactEstimator = (data) => {
     severeImpact: impact(50)
   };
 }
-
+// console.log(covid19ImpactEstimator(mydata));
 export default covid19ImpactEstimator;
